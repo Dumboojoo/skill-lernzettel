@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Übungsklausur {{NR}} · {{KURZTITEL}}</title>
+<meta name="description" content="Übungsklausur {{FACH}} {{TITEL}}: {{KURZTITEL}} – {{BE_GESAMT}} BE, {{MINUTEN}} Minuten, mit Erwartungshorizont.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/klausur.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231e1a15'/%3E%3Cpath d='M2 24 L11 12 L17 19 L23 9 L30 18' fill='none' stroke='%23f07a3e' stroke-width='3'/%3E%3C/svg%3E">
+<script>
+window.LERNZETTEL={store:'{{STORE}}'};
+try{var t=localStorage.getItem('{{STORE}}-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}
+</script>
+</head>
+<!-- data-minutes = Gesamtzeit; muss der Summe aller data-min der Teilaufgaben entsprechen -->
+<body class="exam" data-minutes="{{MINUTEN}}">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--ink)"/></marker>
+    <marker id="arr-acc" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#e0662a"/></marker>
+  </defs>
+</svg>
+
+<header class="topbar exam-top">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html" aria-label="Zurück zum Lernzettel">
+      <svg viewBox="0 0 26 26" aria-hidden="true"><rect x="1" y="1" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"/><path d="M1 19 L8 11 L12 15 L18 6 L25 14" fill="none" stroke="var(--accent)" stroke-width="2.4"/></svg>
+      <span class="brand-text">{{TITEL}}</span>
+    </a>
+    <nav class="nav" aria-label="Seiten">
+      <a href="index.html">Lernzettel</a>
+      <!-- aria-current="page" auf den Link der aktuellen Klausur setzen -->
+      <a href="uebungsklausur-1.html">Übungsklausur 1</a>
+      <a href="uebungsklausur-2.html">Übungsklausur 2</a>
+    </nav>
+    <div class="topbar-tools">
+      <div class="timer" id="timer">
+        <span class="timer-clock" id="tClock">{{MINUTEN}}:00</span>
+        <span class="timer-now" id="tNow"></span>
+        <button class="btn small" type="button" id="tStart">Start</button>
+        <button class="icon-btn" type="button" id="tReset" aria-label="Timer zurücksetzen" title="Zurücksetzen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12a8 8 0 1 0 2.3-5.6"/><path d="M4 4v4h4"/></svg></button>
+      </div>
+      <button class="btn small ghost" type="button" id="solBtn" aria-pressed="false">Erwartungshorizont</button>
+      <button class="icon-btn" type="button" id="printBtn" aria-label="Drucken" title="Drucken"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V3h12v6"/><rect x="3" y="9" width="18" height="8"/><path d="M6 14h12v7H6z"/></svg></button>
+      <button class="icon-btn" id="themeToggle" type="button" aria-label="Hell/Dunkel umschalten" title="Hell/Dunkel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4L7 17M17 7l1.4-1.4"/><path d="M12 8a4 4 0 0 0 0 8z" fill="currentColor"/><path d="M12 8a4 4 0 0 1 0 8"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<p class="exam-intro"><b>So übst du:</b> Ausdrucken oder auf Papier mitschreiben, Timer starten ({{MINUTEN}} Minuten), danach den Erwartungshorizont einblenden und dich selbst bewerten. Selbst erstellte Übungsklausur nach dem Muster der echten Klausur – keine offizielle Klausur.</p>
+
+<!-- ================= Blatt 1: Kopf + Aufgabe 1 =================
+     Kopf, Infokasten und Aufgabenbalken an die Originalklausur anpassen (Felder, Wortlaut, Reihenfolge).
+     KEIN Name der Lehrkraft und keine echten Schülernamen – die Seite ist öffentlich. -->
+<section class="sheet">
+  <div class="ex-head">
+    <div class="ex-logo" aria-hidden="true"><!-- kleines fachpassendes Piktogramm, 52×40 --><svg viewBox="0 0 52 40"><path d="M4,36 L20,10 L24,10 L32,22 L36,18 L48,36 Z" fill="none" stroke="currentColor" stroke-width="2"/></svg></div>
+    <div class="tag course">{{KURS}}</div>
+    <div class="tag">Übung</div>
+    <div class="ttl">{{FACH_KURZ}}-Übungsklausur Nr. {{NR}}</div>
+    <div class="tag">{{TITEL}}</div>
+  </div>
+  <div class="ex-info">
+    <div class="wide">Auf eine sorgfältige Darstellung und korrekte Rechtschreibung ist zu achten.</div>
+    <div class="wide wish">Viel Erfolg!</div>
+    <div class="field">Name: <span></span></div>
+    <div class="field">Datum: <span></span></div>
+    <div class="field">Punkte: <span></span> / ({{BE_GESAMT}} BE)</div>
+    <div class="field">Notenpunkte: <span></span></div>
+  </div>
+
+  <div class="task-bar"><b>Aufgabe 1</b><span class="be">({{BE_A1}} BE)</span><span class="time">Zeitmanagement: ca. {{MIN_A1}} Minuten</span></div>
+  <p class="intro">Einleitungstext zum Raumbeispiel mit <mark>markierten Schlüsselbegriffen</mark> – wie in der Originalklausur.</p>
+
+  <!-- Teilaufgabe: data-min = geplante Minuten, data-label = Anzeige im Timer.
+       Operatoren fett (.op). BE/Zeit-Angabe rechts in .st-be im Format "(N BE / ca. M Min.)" -->
+  <div class="st" data-min="{{MIN_1A}}" data-label="Aufgabe 1 a)"><span class="st-l">a)</span><div class="st-b">
+    <p><span class="op">Beschreiben</span> Sie … (M1).</p>
+    <span class="st-be">({{BE_1A}} BE / ca. {{MIN_1A}} Min.)</span></div></div>
+
+  <!-- weitere Teilaufgaben b) … e) -->
+  <div class="sheet-no">1</div>
+</section>
+
+<!-- ================= Blatt 2+: Materialien =================
+     .mat = halbe Breite, .mat.wide = volle Breite. Jede Quelle ehrlich angeben ("Eigene Darstellung, vereinfacht"). -->
+<section class="sheet">
+  <div class="mats">
+    <div class="mat">
+      <h3>M1: Titel des Materials</h3>
+      <div class="mat-text mat-box"><p>Sachtext …</p></div>
+      <div class="src">Eigene Zusammenstellung (vereinfacht)</div>
+    </div>
+    <div class="mat">
+      <h3>M2: Diagramm</h3>
+      <svg viewBox="0 0 600 260" role="img" aria-label="Beschreibung"><text x="300" y="130" text-anchor="middle">Diagramm</text></svg>
+      <div class="src">Eigene Darstellung, schematisch</div>
+    </div>
+  </div>
+  <div class="sheet-no">2</div>
+</section>
+
+<!-- ================= Letztes Blatt: Aufgabe 2 + Material + Operatoren-Liste ================= -->
+<section class="sheet">
+  <div class="task-bar" style="margin-top:0"><b>Aufgabe 2</b><span class="be">({{BE_A2}} BE)</span><span class="time">Zeitmanagement: ca. {{MIN_A2}} Minuten</span></div>
+  <div class="st" data-min="{{MIN_A2}}" data-label="Aufgabe 2"><span class="st-l"></span><div class="st-b">
+    <p><span class="op">Erklären</span> Sie … ausgehend von M6.</p>
+    <span class="st-be">({{BE_A2}} BE / ca. {{MIN_A2}} Min.)</span></div></div>
+
+  <!-- Nur Operatoren aufführen, die in dieser Klausur vorkommen; Wortlaut wie in der Originalklausur -->
+  <div class="oplist">
+    <b class="h">Operatoren-Liste</b>
+    <p><b>beschreiben</b> (AFB I): Sachverhalte schlüssig wiedergeben</p>
+    <p><b>erklären</b> (AFB II): Sachverhalte schlüssig aus Kenntnissen in einen Zusammenhang stellen</p>
+  </div>
+  <div class="sheet-no">3</div>
+</section>
+
+<!-- ================= Erwartungshorizont (standardmäßig ausgeblendet) ================= -->
+<section class="sheet solutions" id="loesung">
+  <div class="sol-head">
+    <div><div class="overline">Zum Selbstkorrigieren</div><h2>Erwartungshorizont</h2></div>
+    <span class="chip">Übungsklausur {{NR}} · {{BE_GESAMT}} BE</span>
+  </div>
+  <p style="font-size:14px;color:var(--ink-2)">Die Punkte sind Richtwerte. Du musst nicht wörtlich so formulieren – entscheidend ist, dass die Aspekte fachlich korrekt und mit Materialbezug vorkommen.</p>
+
+  <!-- je Teilaufgabe ein .sol; Punkte pro Aspekt in Klammern, Summe = BE der Teilaufgabe -->
+  <div class="sol">
+    <h3>1 a) Kurztitel <span>{{BE_1A}} BE · AFB I</span></h3>
+    <ul>
+      <li>Erwarteter Aspekt mit Materialbezug (2)</li>
+    </ul>
+  </div>
+
+  <div class="selfcheck">
+    <h3>Selbstbewertung</h3>
+    <p style="margin:0;font-size:13.5px;color:var(--ink-2)">Trag deine Punkte ein – die Notenpunkte werden nach einer üblichen Oberstufen-Tabelle berechnet (Richtwert, deine Lehrkraft kann einen anderen Schlüssel verwenden).</p>
+    <!-- ein Eingabefeld je Teilaufgabe; max = BE der Teilaufgabe; Summe der max = BE_GESAMT -->
+    <div class="sc-grid">
+      <label>1 a) / {{BE_1A}}<input type="number" inputmode="decimal" min="0" max="{{BE_1A}}" step="0.5" placeholder="0"></label>
+    </div>
+    <div class="sc-result">
+      <div>Summe<b id="scSum">0 / {{BE_GESAMT}}</b></div>
+      <div>Prozent<b id="scPct">0 %</b></div>
+      <div class="np">Notenpunkte<b id="scNP">0 Punkte</b></div>
+    </div>
+  </div>
+</section>
+
+<div class="toasts" id="toasts" aria-live="polite"></div>
+<script src="js/klausur.js"></script>
+</body>
+</html>

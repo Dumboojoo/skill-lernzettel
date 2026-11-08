@@ -1,0 +1,6 @@
+# Fotos der Originalunterlagen (enthalten oft Namen von Mitschülern und der Lehrkraft)
+# – nicht öffentlich hochladen!
+{{FOTO_ORDNER}}/
+
+# Lokale Werkzeug-Einstellungen
+.claude/

@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lernzettel {{TITEL}}</title>
+<meta name="description" content="Interaktiver Lernzettel {{FACH}}: {{THEMEN_KURZ}} – mit drei Erklärstufen, Abhak-Liste und Schnelltests.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231e1a15'/%3E%3Cpath d='M2 24 L11 12 L17 19 L23 9 L30 18' fill='none' stroke='%23f07a3e' stroke-width='3'/%3E%3C/svg%3E">
+<!-- store: eindeutig pro Projekt (z. B. 'bio-genetik'); ranks: 8 fachbezogene Ränge von klein nach groß -->
+<script>
+window.LERNZETTEL={store:'{{STORE}}',ranks:{{RANKS_JSON}}};
+try{var t=localStorage.getItem('{{STORE}}-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}
+</script>
+</head>
+<body>
+
+<!-- Gemeinsame SVG-Definitionen (Pfeilspitzen, Muster) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="f-ink"/></marker>
+    <marker id="arr-acc" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#e0662a"/></marker>
+  </defs>
+</svg>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="#top" aria-label="Lernzettel {{TITEL}} – nach oben">
+      <svg viewBox="0 0 26 26" aria-hidden="true"><rect x="1" y="1" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"/><path d="M1 19 L8 11 L12 15 L18 6 L25 14" fill="none" stroke="var(--accent)" stroke-width="2.4"/></svg>
+      <span class="brand-text">{{TITEL}}</span>
+    </a>
+    <nav class="nav" aria-label="Seiten">
+      <a href="index.html" aria-current="page">Lernzettel</a>
+      <a href="uebungsklausur-1.html">Übungsklausur 1</a>
+      <a href="uebungsklausur-2.html">Übungsklausur 2</a>
+    </nav>
+    <div class="topbar-tools">
+      <div class="seg" id="levelSwitch" role="group" aria-label="Erklärstufe für alle Themen">
+        <button type="button" data-l="1" aria-pressed="false"><span class="bars" data-n="1" aria-hidden="true"><i></i><i></i><i></i></span>Einfach</button>
+        <button type="button" data-l="2" aria-pressed="true"><span class="bars" data-n="2" aria-hidden="true"><i></i><i></i><i></i></span>Normal</button>
+        <button type="button" data-l="3" aria-pressed="false"><span class="bars" data-n="3" aria-hidden="true"><i></i><i></i><i></i></span>Genauer</button>
+      </div>
+      <button class="icon-btn" id="themeToggle" type="button" aria-label="Hell/Dunkel umschalten" title="Hell/Dunkel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4L7 17M17 7l1.4-1.4"/><path d="M12 8a4 4 0 0 0 0 8z" fill="currentColor"/><path d="M12 8a4 4 0 0 1 0 8"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="topbar-progress" aria-hidden="true"><span id="topProgress"></span></div>
+</header>
+
+<section class="hero" id="top">
+  <!-- Dekoration: Höhenlinien. Darf durch ein fachpassendes Linienmotiv ersetzt werden (dünne Linien, currentColor). -->
+  <svg class="hero-topo" viewBox="0 0 1200 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <g fill="none" stroke="currentColor" stroke-width="1.3">
+      <path d="M870,232 C866,205 905,190 935,192 C968,194 992,212 990,233 C988,256 958,270 928,268 C898,266 873,256 870,232Z"/>
+      <path d="M820,236 C812,190 868,160 932,162 C995,164 1045,195 1041,234 C1037,276 985,304 925,302 C866,300 826,278 820,236Z"/>
+      <path d="M765,240 C752,175 835,128 935,128 C1030,128 1100,170 1096,232 C1092,300 1020,340 928,338 C840,336 775,300 765,240Z"/>
+      <path d="M705,246 C690,160 800,92 940,94 C1075,96 1160,150 1154,230 C1148,320 1050,375 925,372 C810,369 715,320 705,246Z"/>
+      <path d="M640,250 C625,140 770,55 945,58 C1110,61 1225,130 1215,228 C1205,345 1080,412 922,408 C775,404 652,345 640,250Z"/>
+      <path d="M570,256 C555,120 740,15 950,20 C1150,25 1290,110 1280,226 C1270,370 1110,452 918,446 C735,440 584,370 570,256Z"/>
+      <path d="M495,262 C480,95 705,-25 955,-18 C1195,-11 1360,90 1348,224 C1336,395 1140,495 912,486 C690,477 510,395 495,262Z"/>
+      <path d="M190,424 C185,375 240,345 305,348 C370,351 410,385 404,426 C398,470 350,492 293,488 C238,484 195,462 190,424Z"/>
+      <path d="M120,430 C112,355 200,305 308,310 C410,315 478,365 470,430 C462,500 385,540 290,534 C200,528 128,492 120,430Z"/>
+    </g>
+  </svg>
+  <div class="hero-inner">
+    <div>
+      <div class="overline">{{FACH_KURS}} · Lernzettel</div>
+      <h1>{{TITEL_MIT_SHY}}<span>{{UNTERTITEL}}</span></h1>
+      <p class="lead">Alles, was für die Klausur wichtig ist – jedes Thema in drei Stufen erklärt. Hake ab, was du verstanden hast, und füll Schicht für Schicht deine {{SAEULE}}.</p>
+      <div class="hero-meta">
+        <!-- 2–4 Chips mit den großen Themenblöcken, Farbe = Kapitelfarbe -->
+        <span class="chip" style="--cc:var(--c2)"><i></i>{{BLOCK_1}}</span>
+        <span class="chip" style="--cc:var(--c6)"><i></i>{{BLOCK_2}}</span>
+        <span class="chip" style="--cc:var(--c1)"><i></i>Operatoren &amp; Methoden</span>
+      </div>
+    </div>
+    <aside class="rank-card" aria-label="Dein Fortschritt">
+      <div class="core" id="core" aria-label="{{SAEULE}}: jede verstandene Schicht färbt sich ein"></div>
+      <div class="rank-info">
+        <div class="overline">Dein Rang</div>
+        <div class="rank-name" id="rankName">{{RANG_1}}</div>
+        <div class="rank-points"><span id="points">0</span> / <span id="pointsMax">0</span> Punkte</div>
+        <div class="rank-bar" aria-hidden="true"><span id="rankBar"></span></div>
+        <div class="rank-next" id="rankNext">&nbsp;</div>
+        <div class="stats">
+          <div><b><span id="doneCount">0</span>/<span id="totalCount">0</span></b>Themen verstanden</div>
+          <div><b><span id="quizCount">0</span>/<span id="quizTotal">0</span></b>Testfragen richtig</div>
+        </div>
+        <button class="btn" type="button" id="randomTopic">Zufälliges offenes Thema →</button>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<div class="layout">
+  <aside class="sidebar" aria-label="Inhalt">
+    <nav class="toc-side" id="tocSide"></nav>
+    <div class="side-box">
+      <div class="overline">Testen</div>
+      <a href="uebungsklausur-1.html">Übungsklausur 1 · {{KLAUSUR_1_KURZ}} →</a>
+      <a href="uebungsklausur-2.html">Übungsklausur 2 · {{KLAUSUR_2_KURZ}} →</a>
+    </div>
+  </aside>
+
+  <main id="main">
+    <section class="block" id="inhalt">
+      <h2>Inhalt</h2>
+      <p class="block-lead">{{HERKUNFT_DER_THEMEN}} Hake direkt hier oder beim Thema ab.</p>
+      <div class="howto">
+        <div><span class="n">01</span><b>Stufe wählen</b>Oben rechts für alle Themen – oder bei jedem Thema einzeln: Einfach, Normal, Genauer.</div>
+        <div><span class="n">02</span><b>Abhaken</b>Verstanden? Haken setzen: +10 Punkte und eine neue Schicht in deiner {{SAEULE}}.</div>
+        <div><span class="n">03</span><b>Schnelltest</b>Unter jedem Thema: richtige Antwort beim ersten Versuch = +5 Punkte.</div>
+      </div>
+      <!-- wird von js/app.js aus den Kapiteln erzeugt -->
+      <div class="toc-grid" id="tocGrid"></div>
+    </section>
+
+    <!-- ================= KAPITEL I (Beispiel – Aufbau für alle Kapitel) =================
+         style="--cc:var(--c1)" … var(--c6): Kapitelfarbe
+         data-short: Kurztitel für Inhaltsliste · data-msg: Satz im Toast, wenn das Kapitel komplett ist -->
+    <section class="chapter" id="kap-1" style="--cc:var(--c1)" data-short="{{KAP1_KURZ}}" data-msg="{{KAP1_MSG}}">
+      <header class="chapter-head">
+        <div class="chapter-no">I</div>
+        <div><div class="overline">Kapitel I</div><h2>{{KAP1_TITEL}}</h2><p class="chapter-desc">{{KAP1_BESCHREIBUNG}}</p></div>
+        <div class="chapter-count"></div>
+      </header>
+
+      <!-- THEMA: id = kurzer Slug (Anker + Speicherschlüssel), nicht mehr ändern, sobald online.
+           Nummer, Verstanden-Button und Stufen-Tabs ergänzt js/app.js automatisch. -->
+      <article class="topic" id="{{THEMA_ID}}" data-show="2">
+        <header class="topic-head"><h3>{{THEMA_TITEL}}</h3></header>
+        <div class="level" data-level="1">
+          <p>Einfach: Alltagssprache, ein Bild/Vergleich, nur die Kernidee.</p>
+          <p class="analogy">Vergleich aus dem Alltag …</p>
+        </div>
+        <div class="level" data-level="2">
+          <div class="def"><b>Begriff</b> = Definition wie im Heft.</div>
+          <ul><li>Heftniveau: Fachbegriffe, Fakten, Tabellen</li></ul>
+          <div class="box merke"><span class="box-label">Merke</span>Kernaussage.</div>
+        </div>
+        <div class="level" data-level="3">
+          <ul><li>Genauer: Zusammenhänge, Musterlösung, Verknüpfungen</li></ul>
+          <div class="box tipp"><span class="box-label">Klausur-Tipp</span>…</div>
+          <div class="box fehler"><span class="box-label">Typischer Fehler</span>…</div>
+        </div>
+        <!-- optional: Abbildung für alle Stufen -->
+        <figure class="fig">
+          <svg viewBox="0 0 640 200" role="img" aria-label="Kurzbeschreibung der Abbildung">
+            <text x="320" y="100" text-anchor="middle" class="t-h">Schema</text>
+          </svg>
+          <figcaption>Bildunterschrift (schematisch)</figcaption>
+        </figure>
+        <div class="quiz">
+          <!-- data-a = Index der richtigen Antwort (0 = erste). Position zwischen den Fragen variieren! -->
+          <div class="q" data-a="1"><p>Frage?</p>
+            <ol><li>falsche Antwort</li><li>richtige Antwort</li><li>falsche Antwort</li></ol>
+            <p class="why">Kurze Erklärung, warum.</p></div>
+          <div class="q" data-a="2"><p>Frage?</p>
+            <ol><li>falsch</li><li>falsch</li><li>richtig</li></ol>
+            <p class="why">Erklärung.</p></div>
+        </div>
+      </article>
+    </section>
+
+<!-- WEITERE-KAPITEL -->
+
+    <section class="block" id="exams">
+      <h2>Bereit für den Ernstfall?</h2>
+      <p class="block-lead">Zwei Übungsklausuren im Stil der echten Klausur: {{BE_GESAMT}} BE, {{MINUTEN}} Minuten, mit Materialien, Operatorenliste, Timer und Erwartungshorizont zum Selbstkorrigieren.</p>
+      <div class="exam-cards">
+        <a class="exam-card" href="uebungsklausur-1.html">
+          <span class="overline">Übungsklausur 1</span>
+          <b>{{KLAUSUR_1_TITEL}}</b>
+          <span>{{KLAUSUR_1_THEMEN}}</span>
+          <em>{{BE_GESAMT}} BE · {{MINUTEN}} Min.</em>
+        </a>
+        <a class="exam-card" href="uebungsklausur-2.html">
+          <span class="overline">Übungsklausur 2</span>
+          <b>{{KLAUSUR_2_TITEL}}</b>
+          <span>{{KLAUSUR_2_THEMEN}}</span>
+          <em>{{BE_GESAMT}} BE · {{MINUTEN}} Min.</em>
+        </a>
+      </div>
+    </section>
+  </main>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <p>Lernzettel „{{TITEL}}“ · {{FACH}}. Zusammengestellt aus Unterrichtsmaterialien. Ohne Gewähr – bei Widersprüchen gilt der Hefter. Dein Fortschritt wird nur in diesem Browser gespeichert.</p>
+    <button class="linkish" type="button" id="resetAll">Fortschritt zurücksetzen</button>
+  </div>
+</footer>
+
+<div class="toasts" id="toasts" aria-live="polite"></div>
+<div class="finale" id="finale" hidden>
+  <div class="finale-card" role="dialog" aria-modal="true" aria-labelledby="finaleTitle">
+    <div class="overline">Alle Themen abgehakt</div>
+    <h2 id="finaleTitle">{{FINALE_TITEL}}</h2>
+    <p>Du hast jede Schicht freigelegt. Jetzt der echte Test: Schreib eine Übungsklausur unter Zeitdruck.</p>
+    <p><a class="btn" href="uebungsklausur-1.html">Zur Übungsklausur 1 →</a> <button class="btn ghost" type="button" data-close>Schließen</button></p>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
