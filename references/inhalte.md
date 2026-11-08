@@ -10,6 +10,7 @@ Ein vollständiges Beispielthema liegt in `beispiel-thema.html` – vor dem erst
 4. Schnelltests
 5. Abbildungen als Inline-SVG
 6. Fachliche Sorgfalt
+7. Erklärvideos (YouTube)
 
 ---
 
@@ -68,6 +69,7 @@ Alle Klassen sind in `css/style.css` definiert. Nummer, „Verstanden“-Knopf u
 | Schritt-für-Schritt (nummeriert) | `<ol class="steps"><li>…</li></ol>` (`css/extras.css`) |
 | Übungsaufgaben aus Buch/AB | `<p class="buch"><b>Üben</b> S. 12 Nr. 1–3</p>` – nach den Stufen, vor dem Quiz |
 | Zwei Abbildungen nebeneinander | `<div class="fig-2">…</div>` in `<figure class="fig">` |
+| Erklärvideos (Pflicht, vor dem Quiz) | `<div class="videos"><b>Videos</b><ul><li><a href="https://www.youtube.com/watch?v=ID" target="_blank" rel="noopener">Titel</a> <small>Kanal · 3:33</small></li></ul></div>` |
 | Formel-Kasten, Rechenweg (Mathe) | `.formel`, `.rechnung` – siehe `references/mathe.md` |
 
 Kapitel: `<section class="chapter" id="kap-N" style="--cc:var(--cN)" data-short="Kurztitel" data-msg="Toast-Satz">` mit `.chapter-head` (siehe Vorlage). Es gibt sechs Kapitelfarben `--c1` … `--c6`; bei mehr Kapiteln Farben wiederholen.
@@ -102,3 +104,27 @@ Abbildungen machen den Unterschied zu einem Textdokument. Pro Kapitel 1–3 Stü
 - Zahlen und Fakten nur übernehmen, wenn sie stimmen. Notizen von Schülern enthalten Rechen- oder Abschreibfehler – Werte aus Diagrammen der Lehrkraft nachrechnen (Beispiel: „45 % liegen 3–6 km tief“ war laut Histogramm 54 %).
 - Wo der Unterricht vereinfacht, die Heftversion in „Normal“ lassen und die genauere Erklärung in „Genauer“ ergänzen, statt das Heft zu „korrigieren“.
 - Jede bewusste Abweichung vom Heft am Ende dem Nutzer nennen.
+
+## 7. Erklärvideos (YouTube)
+
+Der Nutzer möchte zu **jedem Thema** passende YouTube-Videos verlinkt haben.
+
+**Finden** – alle Suchanfragen in eine Datei (eine pro Zeile, möglichst die Fachbegriffe des Themas), dann auf einmal suchen:
+
+```bash
+python <skill>/scripts/youtube.py suche-datei <scratch>/suchen.txt --n 7 > <scratch>/treffer.json
+python <skill>/scripts/youtube.py suche "Kettenregel einfach erklärt"      # einzelne Nachsuche
+```
+
+Das Skript liest die YouTube-Suchseite (ID, Titel, Kanal, Länge, Aufrufe). Auf macOS mit python.org-Python fehlen oft SSL-Zertifikate – das Skript weicht dann automatisch auf `curl` aus; die Zertifikatsprüfung nie abschalten.
+
+**Auswählen** – pro Thema 2–3 Videos:
+- **Deutsch**, Schulniveau, passend zum Unterthema (nicht nur zum Oberbegriff: „Normalengleichung“ für Normalen, nicht irgendein Ableitungsvideo).
+- Bekannte Schulkanäle bevorzugen, z. B. Mathe: Mathe by Daniel Jung, MathemaTrick, simpleclub, Lehrerschmidt, Studyflix; Naturwissenschaften: simpleclub, Studyflix, musstewissen; Geschichte/Geo: MrWissen2go, Terra X, simpleclub. Kleine Kanäle nur, wenn sie genau die Aufgabenart der Klausur treffen.
+- Mischung: ein kurzes Grundlagenvideo (2–6 Min.) + ein ausführlicheres mit Beispielen/typischen Aufgaben. Keine Shorts, keine als „(veraltet)“ markierten Videos, nichts, was über den Stoff der Stufe hinausgeht (z. B. e-Funktion, wenn sie noch nicht dran war).
+- **Video-IDs ausschließlich aus den Suchergebnissen übernehmen**, nie raten oder aus dem Gedächtnis – erfundene IDs führen ins Leere.
+
+**Einbauen** – als `.videos`-Box nach den Stufen und dem `.buch`-Hinweis, direkt vor `<div class="quiz">`. Linktext = sinnvoll gekürzter Originaltitel (ohne Versalien-Clickbait), dahinter Kanal und Länge in `<small>`. Nur verlinken (`target="_blank" rel="noopener"`), **nicht einbetten**: eingebettete Player laden YouTube-Cookies und machen die Seite schwer. Im Footer steht, dass Videos zu YouTube (externe Seite) führen. Im Druck ist die Box ausgeblendet.
+
+**Prüfen** – `python <skill>/scripts/youtube.py pruefe <projekt>` ruft jedes Video über die offizielle oEmbed-Schnittstelle ab (existiert, öffentlich, Titel/Kanal). Fehler ersetzen. `check_site.py` warnt bei Themen ohne Videos.
+

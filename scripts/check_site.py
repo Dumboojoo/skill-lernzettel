@@ -83,6 +83,8 @@ def check_index(path: Path, r: Report):
         for lvl in ("1", "2", "3"):
             if f'data-level="{lvl}"' not in body:
                 r.err(f"Thema {tid}: Erklärstufe {lvl} fehlt")
+        if not re.search(r'class="videos".*?youtube\.com/watch\?v=[A-Za-z0-9_-]{11}', body, re.S):
+            r.warn(f"Thema {tid}: keine Erklärvideos (.videos mit YouTube-Link) – references/inhalte.md, Abschnitt 7")
         qs = list(re.finditer(r'<div class="q" data-a="(\d+)"', body))
         if len(qs) < 2:
             r.warn(f"Thema {tid}: nur {len(qs)} Schnelltest-Frage(n) (empfohlen 2–3)")

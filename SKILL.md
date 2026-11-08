@@ -26,6 +26,7 @@ Layout und Logik sind fertig (`assets/`). Deine Arbeit ist der **Inhalt** – Th
 
 - **Design passend zum Fach.** Jeder Lernzettel bekommt ein Fach-Theme (Mathe = Karoheft/Tafel, Geo = Höhenlinien/Bohrkern …). Vorhandene Themes in `assets/themes/`; für ein neues Fach eines bauen und im Skill ablegen → `references/design.md`. Ein generischer Look, der zu jedem Fach gleich aussieht, gefiel nicht.
 - **Immer eine klare, „cleane“ Schrift – nie etwas Rundliches**, egal welches Fach: z. B. Inter/Inter Tight, Archivo, IBM Plex, Source Sans 3. Verboten u. a. Nunito, Quicksand, Comfortaa, Poppins, Montserrat, DM Sans, Rubik (vollständige Liste in `references/design.md`; `check_site.py` meldet sie). Kantige Elemente, kleine Radien.
+- **Zu jedem Thema immer YouTube-Erklärvideos verlinken** (2–3 pro Thema, deutsch, bekannte Schulkanäle, geprüfte Links) – `references/inhalte.md`, Abschnitt 7.
 - Webseite auf **GitHub Pages**, Fortschritt nur im Browser.
 - Antworten und Seiten auf **Deutsch**, Schüler duzen.
 
@@ -83,6 +84,7 @@ Lies zuerst `references/inhalte.md` und das Beispiel `references/beispiel-thema.
 - 2–3 Schnelltest-Fragen pro Thema mit variierter Position der richtigen Antwort.
 - 1–3 SVG-Abbildungen pro Kapitel, Koordinaten vorher berechnen. Funktionsgraphen mit `scripts/plot.py` erzeugen (`references/mathe.md`, Abschnitt 3).
 - Mathe: Formeln, Rechenwege, Formel-Kästen und Übungsangaben aus dem Buch → `references/mathe.md`.
+- **Erklärvideos zu jedem Thema** (Pflicht): mit `scripts/youtube.py suche-datei` für alle Themen auf einmal suchen, pro Thema 2–3 passende Videos auswählen und als `.videos`-Box vor dem Schnelltest einfügen. Video-IDs nie raten oder aus dem Gedächtnis schreiben – nur IDs aus den Suchergebnissen verwenden. Details: `references/inhalte.md`, Abschnitt 7.
 
 **Lange Dateien in Etappen schreiben:** Erst `index.html` mit den ersten Kapiteln und einem Marker wie `<!-- WEITERE-KAPITEL -->` anlegen, dann je Kapitel(-paar) den Marker per Edit ersetzen (neuen Marker ans Ende). Eine einzelne riesige Schreibaktion bricht leicht ab, und dann ist alles weg.
 
@@ -101,6 +103,12 @@ python <skill>/scripts/check_site.py <projekt> --names "Vorname Nachname,Frau X"
 ```
 
 Das Skript prüft Stufen, Quiz-Antwortindizes, Ankerlinks, BE-/Minutensummen der Klausuren, Erwartungshorizont, Platzhalter-Reste, `.gitignore`, ob Namen auf öffentlichen Seiten stehen, ob `css/theme.css` richtig eingebunden ist und ob rundliche Schriften vorkommen. Alle Fehler beheben.
+
+Video-Links prüfen (existieren, öffentlich, Titel/Kanal passen):
+
+```bash
+python <skill>/scripts/youtube.py pruefe <projekt>
+```
 
 Dann im Browser ansehen:
 - Über einen lokalen Server (`python3 -m http.server 8642`, im Hintergrund), nicht `file://` – in der Vorschau lädt `file://` oft kein CSS.
@@ -124,6 +132,7 @@ Dann im Browser ansehen:
 Kurz zusammenfassen:
 - Kapitel und Themen (Inhaltsliste in einer Zeile pro Kapitel)
 - Was die Spielerei kann (Punkte, Ränge, Säule, Schnelltests)
+- Wie viele Erklärvideos verlinkt und geprüft sind (und von welchen Kanälen)
 - Übungsklausuren: Fallbeispiele und abgedeckte Themen
 - **Bewusste Abweichungen von den Notizen** (z. B. falsche Zahl korrigiert) und welche Materialwerte schematisch sind
 - Was nicht geprüft wurde (z. B. Druckansicht)

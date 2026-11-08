@@ -161,6 +161,12 @@ try{var t=localStorage.getItem('{{STORE}}-theme');if(t)document.documentElement.
           </svg>
           <figcaption>Bildunterschrift (schematisch)</figcaption>
         </figure>
+        <!-- Erklärvideos (Pflicht): 2–3 geprüfte YouTube-Links, IDs nur aus scripts/youtube.py -->
+        <div class="videos"><b>Videos</b>
+          <ul>
+            <li><a href="https://www.youtube.com/watch?v={{VIDEO_ID}}" target="_blank" rel="noopener">{{VIDEO_TITEL}}</a> <small>{{KANAL}} · {{LAENGE}}</small></li>
+          </ul>
+        </div>
         <div class="quiz">
           <!-- data-a = Index der richtigen Antwort (0 = erste). Position zwischen den Fragen variieren! -->
           <div class="q" data-a="1"><p>Frage?</p>
@@ -198,7 +204,7 @@ try{var t=localStorage.getItem('{{STORE}}-theme');if(t)document.documentElement.
 
 <footer class="footer">
   <div class="footer-inner">
-    <p>Lernzettel „{{TITEL}}“ · {{FACH}}. Zusammengestellt aus Unterrichtsmaterialien. Ohne Gewähr – bei Widersprüchen gilt der Hefter. Dein Fortschritt wird nur in diesem Browser gespeichert.</p>
+    <p>Lernzettel „{{TITEL}}“ · {{FACH}}. Zusammengestellt aus Unterrichtsmaterialien. Ohne Gewähr – bei Widersprüchen gilt der Hefter. Dein Fortschritt wird nur in diesem Browser gespeichert. Die Videos sind Links zu YouTube (externe Seite, öffnet in neuem Tab).</p>
     <button class="linkish" type="button" id="resetAll">Fortschritt zurücksetzen</button>
   </div>
 </footer>
