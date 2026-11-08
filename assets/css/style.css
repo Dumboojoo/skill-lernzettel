@@ -1,5 +1,7 @@
 /* =========================================================
-   Lernzettel – gemeinsames Stylesheet (eckige Schriften: Archivo + IBM Plex)
+   Lernzettel – gemeinsames Stylesheet: Layout, Bausteine, Logik-Zustände.
+   Die Tokens hier ergeben das Theme „erde“ (Archivo + IBM Plex). Fachdesign,
+   Schriften und Motiv kommen aus css/theme.css (assets/themes/), das zuletzt geladen wird.
    ========================================================= */
 
 /* ---------- Tokens ---------- */

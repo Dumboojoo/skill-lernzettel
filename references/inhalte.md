@@ -65,6 +65,10 @@ Alle Klassen sind in `css/style.css` definiert. Nummer, „Verstanden“-Knopf u
 | Stadien/Phasen | `<div class="wilson"><div class="wstage" data-t="div"><span class="n">1</span><b>Name</b>Text<span class="ex">Bsp.: …</span></div>…</div>` (`data-t="div"` rot, `"kon"` blau, ohne = neutral; Legende mit `.legend`) |
 | Zeitleiste | `<ul class="timeline"><li><span class="era">Zeit</span><b>Titel</b>Text</li></ul>` |
 | 3×3-Raster (z. B. Klima) | `.climate` mit `.h`, `.rh`, `.cell` + Farbklasse – siehe CSS |
+| Schritt-für-Schritt (nummeriert) | `<ol class="steps"><li>…</li></ol>` (`css/extras.css`) |
+| Übungsaufgaben aus Buch/AB | `<p class="buch"><b>Üben</b> S. 12 Nr. 1–3</p>` – nach den Stufen, vor dem Quiz |
+| Zwei Abbildungen nebeneinander | `<div class="fig-2">…</div>` in `<figure class="fig">` |
+| Formel-Kasten, Rechenweg (Mathe) | `.formel`, `.rechnung` – siehe `references/mathe.md` |
 
 Kapitel: `<section class="chapter" id="kap-N" style="--cc:var(--cN)" data-short="Kurztitel" data-msg="Toast-Satz">` mit `.chapter-head` (siehe Vorlage). Es gibt sechs Kapitelfarben `--c1` … `--c6`; bei mehr Kapiteln Farben wiederholen.
 
@@ -90,6 +94,7 @@ Abbildungen machen den Unterschied zu einem Textdokument. Pro Kapitel 1–3 Stü
   - Die CSS-Regel `.fig text{fill:…}` überschreibt `fill="…"`-Attribute → für Sonderfarben `style="fill:…"`.
   - Pfeilspitzen über die gemeinsamen `<marker>` (`url(#arr)`) aus dem `<defs>`-Block am Seitenanfang; neue Marker/Muster dort ergänzen, IDs pro Seite eindeutig.
   - Beschriftungen nicht über Linien legen; bei Platzmangel `viewBox` oben erweitern (z. B. `0 -40 640 320`) und Führungslinien nutzen.
+- **Funktionsgraphen** nicht von Hand: `scripts/plot.py` (exakte Koordinaten, Farben über Theme-Klassen). Nennt die Bildunterschrift Farben („orange Kurve“), müssen sie zum Theme passen.
 - Bildunterschrift in `<figcaption>` ehrlich: „schematisch“, „nicht maßstabsgetreu“, Quelle der Werte.
 
 ## 6. Fachliche Sorgfalt

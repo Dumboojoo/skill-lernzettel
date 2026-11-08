@@ -7,14 +7,21 @@
 <meta name="description" content="Interaktiver Lernzettel {{FACH}}: {{THEMEN_KURZ}} – mit drei Erklärstufen, Abhak-Liste und Schnelltests.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/extras.css">
+<!-- Fachdesign (Farben, Schriften, Motiv) – immer zuletzt laden -->
+<link rel="stylesheet" href="css/theme.css">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231e1a15'/%3E%3Cpath d='M2 24 L11 12 L17 19 L23 9 L30 18' fill='none' stroke='%23f07a3e' stroke-width='3'/%3E%3C/svg%3E">
 <!-- store: eindeutig pro Projekt (z. B. 'bio-genetik'); ranks: 8 fachbezogene Ränge von klein nach groß -->
 <script>
 window.LERNZETTEL={store:'{{STORE}}',ranks:{{RANKS_JSON}}};
 try{var t=localStorage.getItem('{{STORE}}-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}
 </script>
+<!-- Nur bei Formeln (Mathe, Physik, Chemie): KaTeX, siehe references/mathe.md
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false})"></script>
+-->
 </head>
 <body>
 

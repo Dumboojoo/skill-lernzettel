@@ -18,6 +18,11 @@ from pathlib import Path
 
 IMAGE_EXT = {".jpg", ".jpeg", ".png", ".heic", ".webp", ".gif", ".bmp", ".pdf"}
 
+# Rundliche / kreisrunde Schriften – der Nutzer möchte immer klare, kantige Schriften.
+ROUND_FONTS = ["Nunito", "Quicksand", "Comfortaa", "Varela Round", "Fredoka", "Baloo", "M PLUS Rounded",
+               "Rounded Mplus", "Rubik", "Poppins", "Montserrat", "DM Sans", "Manrope", "Outfit", "Lexend",
+               "Barlow", "Mulish", "Sniglet", "Chewy", "Comic Neue", "Comic Sans", "Arial Rounded", "SF Pro Rounded"]
+
 
 class Report:
     def __init__(self):
@@ -164,6 +169,34 @@ def check_exam(path: Path, r: Report):
     r.good(f"{name}: {len(mins)} Teilaufgaben, {sum(be):g} BE, {sum(mins):g} Min., {len(mats)} Materialien")
 
 
+def check_design(root: Path, r: Report):
+    """Fachdesign vorhanden? Keine rundlichen Schriften?"""
+    theme = root / "css" / "theme.css"
+    pages = [root / "index.html"] + sorted(root.glob("uebungsklausur-*.html"))
+    if not theme.exists():
+        r.err("css/theme.css fehlt – Fachdesign aus assets/themes/ kopieren oder neu anlegen (references/design.md)")
+    else:
+        t = theme.read_text(encoding="utf-8")
+        if "--font-head" not in t or "--font-sans" not in t:
+            r.warn("css/theme.css setzt --font-head/--font-sans nicht – Schriften kommen dann aus style.css (Theme erde)")
+        if 'data-theme="dark"' not in t:
+            r.warn("css/theme.css hat keine Dunkel-Variante (:root[data-theme=\"dark\"])")
+        r.good("css/theme.css vorhanden")
+    for p in pages:
+        if p.exists():
+            h = p.read_text(encoding="utf-8")
+            if "css/theme.css" not in h:
+                r.err(f"{p.name}: bindet css/theme.css nicht ein")
+            elif h.rfind("css/theme.css") < h.rfind("css/style.css") or h.rfind("css/theme.css") < h.rfind("css/klausur.css"):
+                r.err(f"{p.name}: css/theme.css muss NACH style.css/klausur.css geladen werden")
+    files = [p for p in list((root / "css").glob("*.css")) + pages if p.exists()]
+    for p in files:
+        text = p.read_text(encoding="utf-8", errors="ignore")
+        for font in ROUND_FONTS:
+            if re.search(r"(family=|[\"'])" + re.escape(font).replace("\\ ", "[ +]") + r"\b", text):
+                r.err(f"{p.relative_to(root)}: rundliche Schrift „{font}“ – nur klare, kantige Schriften verwenden (references/design.md)")
+
+
 def check_privacy(root: Path, r: Report, names):
     gi = root / ".gitignore"
     ignored = []
@@ -228,6 +261,7 @@ def main():
         for needed in ("css/klausur.css", "js/klausur.js"):
             if not (root / needed).exists():
                 r.err(f"{needed} fehlt")
+    check_design(root, r)
     check_privacy(root, r, [n.strip() for n in a.names.split(",") if n.strip()])
 
     print(f"Prüfe {root}\n")

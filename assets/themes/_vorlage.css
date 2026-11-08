@@ -1,0 +1,34 @@
+@import url("https://fonts.googleapis.com/css2?family=…&display=swap"); /* nur Schriften aus references/design.md, Abschnitt 2 */
+/* =========================================================
+   Theme <FACH> – hell: <Motiv> · dunkel: <Motiv>
+   Wird als css/theme.css NACH style.css, klausur.css und extras.css geladen.
+   Pflicht: alle Tokens in :root, in @media (prefers-color-scheme:dark) mit
+   :root:not([data-theme="light"]) UND in :root[data-theme="dark"] setzen.
+   ========================================================= */
+:root{
+  /* Flächen */      --bg:#;--bg-2:#;--surface:#;--surface-2:#;
+  /* Text/Linien */  --ink:#;--ink-2:#;--muted:#;--line:#;--line-2:#;
+  /* Akzent */       --accent:#;--accent-ink:#;--accent-soft:#;
+  /* Feedback */     --ok:#;--ok-soft:#;--bad:#;--bad-soft:#;
+  /* Zusatzfarben (Abbildungen: f-water/s-water, f-land …, Textmarker) */
+                     --water:#;--water-ink:#;--land:#;--land-2:#;--hl:#;
+  /* 6 Kapitelfarben – gut unterscheidbar, auch in Dunkel */
+                     --c1:#;--c2:#;--c3:#;--c4:#;--c5:#;--c6:#;
+  --shadow:…;--r:4px;
+  /* Klausurblätter (klausur.css) */ --paper:#;--paper-line:#;
+  --font-sans:"…",system-ui,sans-serif;
+  --font-head:"…",system-ui,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){ /* dieselben Tokens, dunkel */ } }
+:root[data-theme="dark"]{ /* dieselben Tokens, dunkel – identisch zum Block darüber */ }
+
+/* Fachmotiv: Hintergrund-Textur (z. B. Karo, Linien, Millimeterpapier) – dezent, max. ~10 % Deckkraft */
+/* body,body.exam{background-image:…} body.exam{background-color:var(--bg-2)} */
+
+/* Typografie-Anpassungen, wenn die Überschriftenschrift keine Breitenachse hat:
+   font-stretch:normal setzen und Versalien abschalten, z. B.
+   .hero h1,.block > h2,.chapter-head h2,.rank-name,.brand,.finale-card h2,.sol-head h2{text-transform:none;font-stretch:normal} */
+
+/* Fortschrittssäule (.core) im Fachmotiv: z. B. Wertetabelle, DNA-Strang, Zeitleiste
+   .core::after{display:none}  .core::before{content:"…"}  .core a.done{background:var(--cc)} */

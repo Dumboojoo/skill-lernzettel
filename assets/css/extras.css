@@ -1,0 +1,68 @@
+/* =========================================================
+   Zusatzbausteine für alle Fächer: Schrittfolgen, Übungshinweise,
+   Plots (scripts/plot.py), Klausur-Teilaufgaben (Teil A/B, Wahlaufgaben)
+   Wird nach style.css geladen, vor theme.css.
+   ========================================================= */
+
+/* Kochrezept-Schritte */
+ol.steps{counter-reset:s;list-style:none;padding:0;margin:14px 0}
+ol.steps > li{counter-increment:s;position:relative;padding:6px 0 6px 40px;border-top:1px dashed var(--line)}
+ol.steps > li:first-child{border-top:0}
+ol.steps > li::before{content:counter(s);position:absolute;left:0;top:6px;width:26px;height:26px;display:grid;place-items:center;font-family:var(--font-mono);font-size:13px;font-weight:600;color:var(--bg);background:var(--cc,var(--ink));border-radius:2px}
+
+/* Übungsaufgaben aus Buch / Lernkatalog */
+.buch{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;margin:16px 0 0;padding:8px 12px;border:1px dashed var(--line-2);font-size:14px;color:var(--ink-2);border-radius:var(--r)}
+.buch b{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--cc,var(--muted));font-weight:600}
+
+/* Plots */
+.plot{width:100%;height:auto;display:block;overflow:visible;margin:0 auto}
+.plot text{fill:var(--ink);font-family:var(--font-sans);font-size:12px}
+.plot .t-xs{font-size:10.5px}.plot .t-s{font-size:12px}.plot .t-b{font-weight:600}
+.plot .t-mute{fill:var(--muted)}.plot .t-acc{fill:var(--accent)}.plot .t-water{fill:var(--water-ink)}.plot .t-ok{fill:var(--ok)}
+.plot .grid{stroke:var(--line);stroke-width:1}
+.plot .axis{stroke:var(--ink);stroke-width:1.4}
+.s-ok{stroke:var(--ok)}.f-ok{fill:var(--ok)}
+.fig .t-ok{fill:var(--ok)}
+.fig .plot,.st-fig .plot{width:100%}
+.fig-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media (max-width:640px){.fig-2{grid-template-columns:1fr}}
+
+/* ---------- Klausur: Teile, Aufgabenköpfe, Teilaufgaben, Wahlaufgaben ---------- */
+body.exam .st{grid-template-columns:minmax(0,1fr)}
+.teil-bar{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center;border:1.5px solid var(--paper-line,var(--ink));background:var(--surface-2);margin:30px 0 14px;padding:6px 14px;font-size:15px}
+.teil-bar b{font-family:var(--font-head);font-size:16px;text-decoration:underline}
+.aufg{display:flex;justify-content:space-between;gap:10px;border-bottom:1.5px solid var(--paper-line,var(--ink));font-weight:700;margin:0 0 8px;padding-bottom:2px}
+.aufg span{font-weight:700}
+ol.sub{list-style:none;padding:0;margin:8px 0 4px}
+ol.sub > li{display:grid;grid-template-columns:26px minmax(0,1fr) auto;gap:4px 8px;margin:7px 0;align-items:baseline}
+ol.sub .sl{font-weight:600}
+ol.sub .pt{font-weight:700;white-space:nowrap}
+.wahl-hint{font-size:13px;font-style:italic;color:var(--ink-2);margin:4px 0 8px}
+.wahl{border:1.5px solid var(--paper-line,var(--ink));padding:10px 14px 6px;margin:10px 0}
+.wahl .aufg{margin-top:0}
+.st-fig{float:right;width:270px;margin:0 0 10px 18px;border:1px solid var(--line);background:var(--surface);padding:6px}
+.st-fig.wide{float:none;width:100%;max-width:none;margin:10px 0}
+.st-fig figcaption{font-size:11px;color:var(--muted);font-family:var(--font-mono);text-align:center;margin-top:2px}
+.st-b::after{content:"";display:block;clear:both}
+.st-be{clear:both}
+.sol .katex-display{margin:.3em 0}
+.sol .tbl{margin:8px 0}
+.ex-text{border:1.5px solid var(--paper-line,var(--ink));margin:10px 0 0 10px;padding:8px 14px;font-size:13.5px;line-height:1.45}
+.ex-text p{margin:2px 0}
+.viel-erfolg{text-align:center;font-weight:700;border-bottom:1.5px solid var(--paper-line,var(--ink));padding-bottom:4px;margin:36px 0 0}
+@media (max-width:640px){
+  .st-fig{float:none;width:100%;max-width:340px;margin:8px auto}
+  ol.sub > li{grid-template-columns:24px minmax(0,1fr)}
+  ol.sub .pt{grid-column:2;text-align:right}
+}
+/* Werkzeugleiste der Klausur passt aufs Handy */
+@media (max-width:520px){
+  .exam-top .topbar-tools{flex-wrap:wrap;row-gap:8px;gap:6px}
+  .exam-top #printBtn{display:none}
+  .timer{padding-left:8px}
+}
+@media print{.st-fig{border:0}}
+/* KaTeX legt für Screenreader absolut positionierte 1-px-Elemente an. Ohne eigenen
+   Bezugsrahmen entkommen sie Scroll-Containern (Tabellen, breite Formeln) und
+   erzeugen auf dem Handy waagerechtes Scrollen. */
+.tbl,.katex-display,.formel,.rechnung{position:relative}

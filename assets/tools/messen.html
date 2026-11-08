@@ -1,0 +1,18 @@
+<!doctype html>
+<!-- Messwerkzeug: findet waagerechtes Scrollen auf Handybreite (390 px) und prüft, ob die Theme-Schriften geladen sind.
+     Nutzung: vorübergehend als _messen.html ins Projekt kopieren, lokalen Server starten, dann
+       "<Chrome>" --headless=new --disable-gpu --virtual-time-budget=20000 --dump-dom "http://localhost:8642/_messen.html?p=index.html"
+     und den Inhalt von <pre id="out"> lesen. Danach die Datei wieder löschen (nicht veröffentlichen!).
+     Hinweis: Chrome headless hat eine Mindest-Fensterbreite – Screenshots mit --window-size=390,… sind daher NICHT aussagekräftig, diese Messung schon. -->
+<html><body style="margin:0"><iframe id="f" style="border:0;width:390px;height:800px"></iframe><pre id="out"></pre>
+<script>
+var q=new URLSearchParams(location.search),f=document.getElementById('f');f.src=(q.get('p')||'index.html');
+f.onload=function(){setTimeout(function(){var d=f.contentWindow.document,de=d.documentElement,cw=de.clientWidth,res=[],fams=new Set();
+d.querySelectorAll('h1,h3,p,.overline,.brand').forEach(function(e){fams.add(getComputedStyle(e).fontFamily.split(',')[0])});
+d.querySelectorAll('body *').forEach(function(e){var r=e.getBoundingClientRect(),p=e.parentElement.getBoundingClientRect();
+  if(r.width>0&&r.right>cw+1&&p.right<=cw+1){var c=e.className&&e.className.baseVal!==undefined?'svg':e.className;res.push(Math.round(r.right)+'px '+e.tagName+'.'+c+' :: '+(e.textContent||'').slice(0,50).replace(/\s+/g,' '));}});
+var out=['scrollWidth='+de.scrollWidth+' clientWidth='+cw+(de.scrollWidth>cw?'  → WAAGERECHTES SCROLLEN':'  → ok'),'Schriften: '+[...fams].join(' | ')];
+fams.forEach(function(n){if(!/system-ui|serif|monospace/.test(n))out.push('  '+n+' geladen: '+d.fonts.check('16px '+n));});
+out.push('Elemente, die über den Rand ragen (Eltern passen noch):');out=out.concat(res.slice(0,30));
+document.getElementById('out').textContent=out.join('\n');},3000);};
+</script></body></html>

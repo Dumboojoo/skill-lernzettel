@@ -105,7 +105,7 @@
 
   /* ---------- Selbstbewertung ---------- */
   // Übliche Oberstufen-Tabelle (Richtwert): Mindestprozent je Notenpunkt
-  var NP = [[95, 15], [90, 14], [85, 13], [80, 12], [75, 11], [70, 10], [65, 9], [60, 8], [55, 7], [50, 6], [45, 5], [40, 4], [33, 3], [27, 2], [20, 1], [0, 0]];
+  var NP = CFG.np || [[95, 15], [90, 14], [85, 13], [80, 12], [75, 11], [70, 10], [65, 9], [60, 8], [55, 7], [50, 6], [45, 5], [40, 4], [33, 3], [27, 2], [20, 1], [0, 0]];
   var inputs = [].slice.call(document.querySelectorAll('.sc-grid input'));
   function calc() {
     var sum = 0, max = 0;
